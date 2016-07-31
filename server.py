@@ -52,10 +52,11 @@ def call():
   caller_id = os.environ.get("CALLER_ID", CALLER_ID)
   from_conference = from_value.startswith('conference')
   from_value = request.values.get('From')
+  
   if to.startswith("conference:"):
     # Client to conference
     resp = twilio.twiml.Response()
-    resp.dial(callerId=from_value).conference(from_value)
+    resp.dial(callerId=from_value).conference(to)
   elif not from_client:
     # PSTN -> client
     resp.dial(callerId=from_value).client(CLIENT)
